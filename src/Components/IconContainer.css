@@ -1,0 +1,9 @@
+.iconContainer{
+    display: inline-block;
+    text-align: center;
+}
+.iconContainer svg{
+    display: inline-block;
+    width:24px;
+    height:24px;
+}
