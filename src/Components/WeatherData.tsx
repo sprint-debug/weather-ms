@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import ButtonLocation from './ButtonLocation';
+import Text from './Text';
+import TextInput from './TextInput';
 import { WiCelsius, WiThermometer, WiHumidity } from 'react-icons/wi';
 import { FaSun, FaCloudRain, FaCloud } from 'react-icons/fa';
 import Map from './Map';
+import ButtonContainer from './ButtonContainer';
+import TextInputContainer from './TextInputContainer';
+import PageWrapper from './PageWrapper';
+import Card from './Card';
+import IconContainer from './IconContainer';
+import WeatherList from './WeatherList';
 
 interface WeatherData {
   temp: number;
@@ -41,6 +50,26 @@ const WeatherDashboard: React.FC = () => {
     { name: '인천', lat: '37.4563', lon: '126.7052' },
   ];
 
+  const weatherItems = data
+    ? [
+        { icon: getWeatherIcon(data.weather[0].main), title: data.name },
+        {
+          icon: <WiThermometer />,
+          title: '온도',
+          description: `${data.temp}°C`,
+        },
+        {
+          icon: <WiHumidity />,
+          title: '습도',
+          description: `${data.humidity}%`,
+        },
+        {
+          title: '날씨',
+          description: `${data.weather[0].main} (${data.weather[0].description})`,
+        },
+      ]
+    : [];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,54 +97,51 @@ const WeatherDashboard: React.FC = () => {
   }, [latitude, longitude]);
 
   return (
-    <div>
-      <div>
-        Latitude:{' '}
-        <input value={latitude} onChange={(e) => setLatitude(e.target.value)} />
-        Longitude:{' '}
-        <input
-          value={longitude}
-          onChange={(e) => setLongitude(e.target.value)}
-        />
-      </div>
-
+    <PageWrapper>
       <Map latitude={latitude} longitude={longitude} />
 
-      <div>
+      <ButtonContainer>
         {locations.map((location, index) => (
-          <button
+          <ButtonLocation
             key={index}
-            onClick={() => {
-              setLatitude(location.lat);
-              setLongitude(location.lon);
+            name={location.name}
+            lat={location.lat}
+            lon={location.lon}
+            onClick={(lat, lon) => {
+              setLatitude(lat);
+              setLongitude(lon);
             }}
-          >
-            {location.name}
-          </button>
+          />
         ))}
-      </div>
+      </ButtonContainer>
 
       {data ? (
-        <div>
-          <h2>{data.name}</h2>
-          {getWeatherIcon(data.weather[0].main)}
-          <p>
-            <WiThermometer />
-            Temperature: {data.temp}
-            <WiCelsius />
-          </p>
-          <p>
-            <WiHumidity />
-            Humidity: {data.humidity}%
-          </p>
-          <p>
-            Weather: {data.weather[0].main} ({data.weather[0].description})
-          </p>
-        </div>
+        <Card>
+          <WeatherList items={weatherItems} />
+        </Card>
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+
+      <Text content="원하는 곳이 없으시다면 위도와 경도를 입력해 해당 지역의 날씨를 확인하세요." />
+
+      <TextInputContainer>
+        <TextInput
+          label="위도:"
+          name="latitude"
+          id="latitude"
+          value={latitude}
+          onChange={setLatitude}
+        />
+        <TextInput
+          label="경도:"
+          name="longtitude"
+          id="longtitude"
+          value={longitude}
+          onChange={setLongitude}
+        />
+      </TextInputContainer>
+    </PageWrapper>
   );
 };
 
