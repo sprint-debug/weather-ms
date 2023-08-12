@@ -1,6 +1,6 @@
 {
-  "name": "react-hook",
-  "version": "0.1.13",
+  "name": "weather-ms",
+  "version": "0.1.14",
   "private": true,
   "homepage": "https://sprint-debug.github.io/weather-ms",
   "dependencies": {
