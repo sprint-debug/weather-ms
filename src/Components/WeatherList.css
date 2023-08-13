@@ -1,9 +1,0 @@
-.listWeather{}
-.listWeather li{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.listWeather .iconContainer{}
-.listWeather li:first-child{flex-direction: column;margin-bottom:20px;}
-.listWeather li:first-child svg{width:150px;height:150px;}

@@ -1,8 +1,7 @@
-/* button */
-.inputContainer{
+/* inputWrapper */
+.inputWrapper{
     display: flex;
     align-items: flex-start;
     justify-content:flex-start;
-    flex-direction: column;
-    gap:10px;
+    gap:14px;
 }

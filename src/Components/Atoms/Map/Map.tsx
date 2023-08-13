@@ -40,7 +40,7 @@ const Map: React.FC<MapProps> = ({ latitude, longitude }) => {
     }
   }, [latitude, longitude, map]);
 
-  return <div id="map" />;
+  return <div id="map" className="map" />;
 };
 
 export default Map;

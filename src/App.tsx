@@ -1,5 +1,5 @@
 import './App.css';
-import WeatherDashboard from './Components/WeatherData';
+import WeatherDashboard from './Components/PageMain/PageMain';
 
 function App() {
   return (

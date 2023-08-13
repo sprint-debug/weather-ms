@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import ButtonLocation from './ButtonLocation';
-import Text from './Text';
-import TextInput from './TextInput';
-import { WiCelsius, WiThermometer, WiHumidity } from 'react-icons/wi';
-import { FaSun, FaCloudRain, FaCloud } from 'react-icons/fa';
-import Map from './Map';
-import ButtonContainer from './ButtonContainer';
-import TextInputContainer from './TextInputContainer';
-import PageWrapper from './PageWrapper';
-import Card from './Card';
-import IconContainer from './IconContainer';
-import WeatherList from './WeatherList';
 
-interface WeatherData {
+import { WiThermometer, WiHumidity } from 'react-icons/wi';
+import { FaSun, FaCloudRain, FaCloud } from 'react-icons/fa';
+
+import PageWrapper from '../Organisms/PageWrapper/PageWrapper';
+import TextInputWrapper from '../Organisms/TextInputWrapper/TextInputWrapper';
+
+import TextInputContainer from '../Molecules/TextInputContainer/TextInputContainer';
+import ButtonContainer from '../Molecules/ButtonContainer/ButtonContainer';
+
+import TextInput from '../Atoms/TextInput/TextInput';
+import Map from '../Atoms/Map/Map';
+import Card from '../Atoms/Card/Card';
+import Text from '../Atoms/Text/Text';
+import List from '../Atoms/List/List';
+import ButtonLocation from '../Atoms/Button/ButtonLocation';
+
+interface PageMain {
   temp: number;
   humidity: number;
   name: string;
@@ -38,7 +42,7 @@ function getWeatherIcon(weatherCondition: string) {
 }
 
 const WeatherDashboard: React.FC = () => {
-  const [data, setData] = useState<WeatherData | null>(null);
+  const [data, setData] = useState<PageMain | null>(null);
   const [latitude, setLatitude] = useState<string>('37.579617'); // 기본값으로 경복궁 위치 설정
   const [longitude, setLongitude] = useState<string>('126.977041');
 
@@ -84,7 +88,7 @@ const WeatherDashboard: React.FC = () => {
           weather: [
             {
               main: json.weather[0].main,
-              // description을 WeatherData 인터페이스에 추가하고 싶다면 여기에도 추가하세요.
+              // description을 PageMain 인터페이스에 추가하고 싶다면 여기에도 추가하세요.
             },
           ],
         });
@@ -117,7 +121,7 @@ const WeatherDashboard: React.FC = () => {
 
       {data ? (
         <Card>
-          <WeatherList items={weatherItems} />
+          <List items={weatherItems} />
         </Card>
       ) : (
         <p>Loading...</p>
@@ -125,22 +129,26 @@ const WeatherDashboard: React.FC = () => {
 
       <Text content="원하는 곳이 없으시다면 위도와 경도를 입력해 해당 지역의 날씨를 확인하세요." />
 
-      <TextInputContainer>
-        <TextInput
-          label="위도:"
-          name="latitude"
-          id="latitude"
-          value={latitude}
-          onChange={setLatitude}
-        />
-        <TextInput
-          label="경도:"
-          name="longtitude"
-          id="longtitude"
-          value={longitude}
-          onChange={setLongitude}
-        />
-      </TextInputContainer>
+      <TextInputWrapper>
+        <TextInputContainer>
+          <TextInput
+            label="위도:"
+            name="latitude"
+            id="latitude"
+            value={latitude}
+            onChange={setLatitude}
+          />
+        </TextInputContainer>
+        <TextInputContainer>
+          <TextInput
+            label="경도:"
+            name="longtitude"
+            id="longtitude"
+            value={longitude}
+            onChange={setLongitude}
+          />
+        </TextInputContainer>
+      </TextInputWrapper>
     </PageWrapper>
   );
 };

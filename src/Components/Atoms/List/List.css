@@ -1,0 +1,10 @@
+/* list */
+.list{}
+.list li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.list .Icon{}
+.list li:first-child{flex-direction: column;margin-bottom:20px;}
+.list li:first-child svg{width:150px;height:150px;}

@@ -1,8 +1,8 @@
 import React from 'react';
-import './WeatherList.css';
-import IconContainer from './IconContainer';
+import './List.css';
+import Icon from '../Icon/Icon';
 
-interface WeatherListProps {
+interface ListProps {
   items: {
     icon?: React.ReactNode;
     title: string;
@@ -10,12 +10,12 @@ interface WeatherListProps {
   }[];
 }
 
-const WeatherList: React.FC<WeatherListProps> = ({ items }) => {
+const List: React.FC<ListProps> = ({ items }) => {
   return (
-    <ul className="listWeather">
+    <ul className="list">
       {items.map((item, index) => (
         <li key={index}>
-          {item.icon && <IconContainer>{item.icon}</IconContainer>}
+          {item.icon && <Icon>{item.icon}</Icon>}
           {item.description ? (
             <>
               {item.title}: {item.description}
@@ -29,4 +29,4 @@ const WeatherList: React.FC<WeatherListProps> = ({ items }) => {
   );
 };
 
-export default WeatherList;
+export default List;
